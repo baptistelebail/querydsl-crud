@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS account;
+
+CREATE TABLE account(
+    id VARCHAR(4) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE account ADD PRIMARY KEY (id);
