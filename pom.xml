@@ -6,7 +6,7 @@
     <groupId>com.blebail.querydsl</groupId>
     <artifactId>querydsl-crud</artifactId>
     <packaging>pom</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <description>CRUD Repositories for QueryDSL</description>
     <url>https://github.com/baptistelebail/querydsl-crud</url>
 

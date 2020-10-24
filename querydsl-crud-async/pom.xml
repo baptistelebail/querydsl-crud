@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.blebail.querydsl</groupId>
         <artifactId>querydsl-crud</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </parent>
 
     <artifactId>querydsl-crud-async</artifactId>
     <packaging>jar</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <description>Asynchronous CRUD Repositories for QueryDSL</description>
 
     <properties>
