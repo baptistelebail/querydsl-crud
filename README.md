@@ -79,6 +79,9 @@ public final class AccountRepository extends QDSLCrudRepository<QAccount, BAccou
 `AccountRepository` now supports all methods of [CrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/CrudRepository.java).
 
 ### Asynchronous API with CompletableFuture
+
+QueryDSL Crud Async provides asynchronous APIs for QueryDSL Crud, with return types being [CompletableFuture](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html).
+
 #### Add the dependency
 ```xml
    <dependency>
@@ -90,7 +93,7 @@ public final class AccountRepository extends QDSLCrudRepository<QAccount, BAccou
 
 #### AsyncBaseRepository Example
 
-The repository needs to extend [QDSLAsyncBaseRepository](hhttps://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java), pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+The repository needs to extend [QDSLAsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java), pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, BAccount> {
@@ -105,7 +108,7 @@ public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, B
 
 #### AsyncCrudRepository example
 
-The repository needs to extend [QDSLAsyncCrudRepository](hhttps://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java), pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+The repository needs to extend [QDSLAsyncCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java), pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLAsyncCrudRepository<QAccount, BAccount, String> {
