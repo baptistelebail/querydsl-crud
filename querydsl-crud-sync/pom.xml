@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.blebail.querydsl</groupId>
+        <artifactId>querydsl-crud</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <artifactId>querydsl-crud-sync</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1</version>
+    <description>Synchronous CRUD Repositories for QueryDSL</description>
+
+    <properties>
+        <sql.schema>${project.basedir}/src/test/resources/db/schema.sql</sql.schema>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.blebail.querydsl</groupId>
+            <artifactId>querydsl-crud-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-sql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.blebail.junit</groupId>
+            <artifactId>junit-sql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-maven-plugin</artifactId>
+                <version>${querydsl.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdbcDriver>org.h2.Driver</jdbcDriver>
+                    <jdbcUrl>jdbc:h2:mem:;DATABASE_TO_UPPER=false;INIT=runscript from '${sql.schema}'</jdbcUrl>
+                    <jdbcUser>sa</jdbcUser>
+                    <exportBeans>true</exportBeans>
+                    <beanPrefix>B</beanPrefix>
+                    <beanAddFullConstructor>true</beanAddFullConstructor>
+                    <packageName>com.blebail.querydsl.crud</packageName>
+                    <sourceFolder>${project.basedir}/target/generated-sources/java</sourceFolder>
+                    <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+                    <customTypes>
+                        <customType>com.querydsl.sql.types.JSR310InstantType</customType>
+                    </customTypes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>${h2.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
