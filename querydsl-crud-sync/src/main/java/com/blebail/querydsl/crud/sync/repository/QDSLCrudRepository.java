@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * {@inheritDoc}
  */
-public final class QDSLCrudRepository<T extends RelationalPathBase<R>, R, ID> extends QDSLBaseRepository<T, R> implements CrudRepository<R, ID> {
+public class QDSLCrudRepository<T extends RelationalPathBase<R>, R, ID> extends QDSLBaseRepository<T, R> implements CrudRepository<R, ID> {
 
     private final IdentifiableQDSLResource<T, R, ID> qdslResource;
 
