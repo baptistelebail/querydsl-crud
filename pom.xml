@@ -42,7 +42,7 @@
         <junit.version>5.7.0</junit.version>
         <assertj.version>3.17.2</assertj.version>
         <mockito.version>3.5.13</mockito.version>
-        <junit-sql.version>0.1-SNAPSHOT</junit-sql.version>
+        <junit-sql.version>0.1</junit-sql.version>
     </properties>
 
     <modules>
