@@ -123,7 +123,7 @@ public final class AccountRepository extends QDSLAsyncCrudRepository<QAccount, B
 
 #### Custom Executor
 
-By default, [QDSLAsyncBaseRepository](hhttps://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java) and [QDSLAsyncCrudRepository](hhttps://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java) use a thread pool of fixed sized 2 (`Executors.newFixedThreadPool(2)`), but a custom [Executor](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html) can be passed through their second constructor, such as:
+By default, [QDSLAsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java) and [QDSLAsyncCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java) use a thread pool of fixed sized 2 (`Executors.newFixedThreadPool(2)`), but a custom [Executor](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html) can be passed through their second constructor, such as:
 ```java
 public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, BAccount> {
 
