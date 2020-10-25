@@ -1,5 +1,5 @@
 # QueryDSL Crud 
-[![Build Status](https://travis-ci.org/baptistelebail/querysql-crud.svg?branch=master)](https://travis-ci.org/baptistelebail/querysql-crud)
+[![Build Status](https://travis-ci.org/baptistelebail/querydsl-crud.svg?branch=master)](https://travis-ci.org/baptistelebail/querydsl-crud)
 
 Lightweight library allowing to quickly create repositories providing common CRUD operations on top of [QueryDSL](http://www.querydsl.com/).
 
