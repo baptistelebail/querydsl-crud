@@ -51,6 +51,13 @@
         <module>querydsl-crud-async</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>blebail-repository</id>
+            <url>http://blebail.com/repository/</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>blebail-repository</id>
