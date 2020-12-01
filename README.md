@@ -18,7 +18,7 @@ QueryDSL Crud has two repository interfaces.
 - `delete(Predicate)` (deletes resources matching a [Predicate](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/core/types/Predicate.html))
 - `deleteAll()` (deletes all resources)
 
-### [CrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/feature/sync/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/CrudRepository.java), for identifiable resources
+### [CrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/CrudRepository.java), for identifiable resources
 All of the above operations, plus the following (R being the resource type and ID the type of it's id):
 - `save(R)` (creates or updates a resource)
 - `save(Collection<R>)` (creates or updates several resources)
@@ -49,8 +49,19 @@ All of the above operations, plus the following (R being the resource type and I
 ```
 
 #### BaseRepository Example
+```java
+// Initialize a repository
+SQLQueryFactory sqlQueryFactory = ...
+QDSLResource<QAccount, BAccount> accountResource = new QDSLResource<>(QAccount.account);
+BaseRepository<BAccount> repository = new QDSLBaseRepository<>(accountResource, sqlQueryFactory);
 
-The repository needs to extend [QDSLBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/QDSLBaseRepository.java), pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+// A few examples
+Optional<BAccount> account = repository.findOne();
+Collection<BAccount> accounts = repository.findAll();
+Page<BAccount> accountPage = repository.find(new PageRequest(0, 10, List.of(new Sort("username", Sort.Direction.ASC))));
+```
+
+The [QDSLBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/QDSLBaseRepository.java) can also be extended, just pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and a [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLBaseRepository<QAccount, BAccount> {
@@ -64,8 +75,19 @@ public final class AccountRepository extends QDSLBaseRepository<QAccount, BAccou
 `AccountRepository` now supports all methods of [BaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/BaseRepository.java).
 
 #### CrudRepository example
+```java
+// Initialize a repository
+SQLQueryFactory sqlQueryFactory = ...
+IdentifiableQDSLResource<QAccount, BAccount, String> accountResource = new IdentifiableQDSLResource<>(QAccount.account, QAccount.account.id, BAccount::getId);
+CrudRepository<BAccount, String> repository = new QDSLCrudRepository<>(accountResource, sqlQueryFactory);
 
-The repository needs to extend [QDSLCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/QDSLCrudRepository.java), pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+// A few examples
+Optional<BAccount> account = repository.findOne("account1");
+boolean exists = repository.exists("account1");
+boolean deleted = repository.delete("account1");
+```
+
+The [QDSLCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-sync/src/main/java/com/blebail/querydsl/crud/sync/repository/QDSLCrudRepository.java) can also be extended, just pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and a [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLCrudRepository<QAccount, BAccount, String> {
@@ -92,8 +114,19 @@ QueryDSL Crud Async provides asynchronous APIs for QueryDSL Crud, with return ty
 ```
 
 #### AsyncBaseRepository Example
+```java
+// Initialize a repository
+SQLQueryFactory sqlQueryFactory = ...
+QDSLResource<QAccount, BAccount> accountResource = new QDSLResource<>(QAccount.account);
+AsyncBaseRepository<BAccount> repository = new QDSLAsyncBaseRepository<>(accountResource, sqlQueryFactory);
 
-The repository needs to extend [QDSLAsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java), pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+// A few examples
+CompletableFuture<Optional<BAccount>> account = repository.findOne();
+CompletableFuture<Collection<BAccount>> accounts = repository.findAll();
+CompletableFuture<Page<BAccount>> accountPage = repository.find(new PageRequest(0, 10, List.of(new Sort("username", Sort.Direction.ASC))));
+```
+
+The [QDSLAsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java) can also be extended, just pass a [QDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/QDSLResource.java) and a [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, BAccount> {
@@ -107,8 +140,19 @@ public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, B
 `AccountRepository` now supports all methods of [AsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/AsyncBaseRepository.java).
 
 #### AsyncCrudRepository example
+```java
+// Initialize a repository
+SQLQueryFactory sqlQueryFactory = ...
+IdentifiableQDSLResource<QAccount, BAccount, String> accountResource = new IdentifiableQDSLResource<>(QAccount.account, QAccount.account.id, BAccount::getId);
+AsyncCrudRepository<BAccount, String> repository = new QDSLAsyncCrudRepository<>(accountResource, sqlQueryFactory);
 
-The repository needs to extend [QDSLAsyncCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java), pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and the [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
+// A few examples
+CompletableFuture<Optional<BAccount>> account = repository.findOne("account1");
+CompletableFuture<Boolean> exists = repository.exists("account1");
+CompletableFuture<Boolean> deleted = repository.delete("account1");
+```
+
+The [QDSLAsyncCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java) can also be extended, just pass an [IdentifiableQDSLResource](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-commons/src/main/java/com/blebail/querydsl/crud/commons/resource/IdentifiableQDSLResource.java) and a [SQLQueryFactory](http://www.querydsl.com/static/querydsl/4.4.0/apidocs/com/querydsl/sql/SQLQueryFactory.html)
 
 ```java
 public final class AccountRepository extends QDSLAsyncCrudRepository<QAccount, BAccount, String> {
@@ -124,6 +168,15 @@ public final class AccountRepository extends QDSLAsyncCrudRepository<QAccount, B
 #### Custom Executor
 
 By default, [QDSLAsyncBaseRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncBaseRepository.java) and [QDSLAsyncCrudRepository](https://github.com/baptistelebail/querydsl-crud/blob/master/querydsl-crud-async/src/main/java/com/blebail/querydsl/crud/async/repository/QDSLAsyncCrudRepository.java) use a thread pool of fixed sized 2 (`Executors.newFixedThreadPool(2)`), but a custom [Executor](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html) can be passed through their second constructor, such as:
+```java
+SQLQueryFactory sqlQueryFactory = ...
+Executor executor = ...
+
+AsyncBaseRepository<BAccount> repository = new QDSLAsyncBaseRepository<>(accountResource, sqlQueryFactory, executor);
+
+AsyncCrudRepository<BAccount, String> repository = new QDSLAsyncCrudRepository<>(accountResource, sqlQueryFactory, executor);
+```
+or via inheritance:
 ```java
 public final class AccountRepository extends QDSLAsyncBaseRepository<QAccount, BAccount> {
 
