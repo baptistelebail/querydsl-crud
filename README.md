@@ -3,6 +3,22 @@
 
 Lightweight library allowing to quickly create repositories providing common CRUD operations on top of [QueryDSL](http://www.querydsl.com/).
 
+- [Supported operations](#supported-operations)
+    * [BaseRepository](#baserepository-for-unidentifiable-resources)
+    * [CrudRepository](#crudrepository-for-identifiable-resources)
++ [How to use](#how-to-use)
+    * [Add the repository](#add-the-repository)
+    * [Synchronous API](#synchronous-api)
+      + [Add the dependency](#add-the-dependency)
+      + [BaseRepository Example](#baserepository-example)
+      + [CrudRepository example](#crudrepository-example)
+    * [Asynchronous API with CompletableFuture](#asynchronous-api-with-completablefuture)
+      + [Add the dependency](#add-the-dependency-1)
+      + [AsyncBaseRepository Example](#asyncbaserepository-example)
+      + [AsyncCrudRepository example](#asynccrudrepository-example)
+      + [Custom Executor](#custom-executor)
+- [Technical Stack](#technical-stack)
+
 ## Supported operations
 
 QueryDSL Crud has two repository interfaces.
